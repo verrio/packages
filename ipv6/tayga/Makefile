@@ -1,5 +1,3 @@
-# $Id: Makefile 5624 2006-11-23 00:29:07Z nbd $
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tayga
@@ -31,19 +29,10 @@ define Package/tayga/description
   kernel, which is the same driver used by OpenVPN and QEMU/KVM.
 endef
 
-ifdef CONFIG_PACKAGE_netifd
-  define Package/tayga/install
-	$(INSTALL_DIR) $(1)/usr/sbin $(1)/lib/netifd/proto
+define Package/tayga/install
+	$(INSTALL_DIR) $(1)/usr/sbin $(1)/etc/init.d
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tayga $(1)/usr/sbin/
-	$(INSTALL_BIN) ./files/tayga-proto.sh $(1)/lib/netifd/proto/tayga.sh
-  endef
-else
-  define Package/tayga/install
-	$(INSTALL_DIR) $(1)/usr/sbin $(1)/lib/network $(1)/etc/hotplug.d/iface
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tayga $(1)/usr/sbin/
-	$(INSTALL_DATA) ./files/tayga.sh $(1)/lib/network/tayga.sh
-	$(INSTALL_DATA) ./files/tayga.hotplug $(1)/etc/hotplug.d/iface/95-tayga
-  endef
-endif
+	$(INSTALL_BIN) ./files/tayga.init $(1)/etc/init.d/tayga
+endef
 
 $(eval $(call BuildPackage,tayga))

@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+
+WRAPSIX_CONFIG_FILE="/var/etc/wrapsix.conf"
+
+start() {
+	wrapsix $WRAPSIX_CONFIG_FILE
+}
+
+stop() {
+	killall wrapsix
+}
