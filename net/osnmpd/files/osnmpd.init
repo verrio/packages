@@ -1,0 +1,13 @@
+#!/bin/sh /etc/rc.common
+
+START=80
+STOP=40
+
+start() {
+	/usr/sbin/snmpd -c /etc/snmp/snmpd.conf
+}
+
+stop() {
+	killall snmpd
+}
+
